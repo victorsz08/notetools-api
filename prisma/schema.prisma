@@ -1,0 +1,117 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters", "relationJoins"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Contract {
+  id               String        @id
+  number           Int
+  local            String
+  phone            String
+  phoneSecondary   String?
+  installationDate DateTime
+  installationHour String
+  products         String[]
+  price            Float
+  status           Status
+  userId           String
+  createdAt        DateTime
+  updatedAt        DateTime
+  type             TypeContract?
+  observation      String?
+  connectAt        DateTime?
+  User             User          @relation(fields: [userId], references: [id])
+}
+
+model Countries {
+  id        Int      @id @unique
+  country   String
+  uf        String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model Goals {
+  id        String   @id
+  goal      Float
+  user_id   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  User      User     @relation(fields: [user_id], references: [id])
+}
+
+model Notes {
+  id        String   @id
+  text      String
+  user_id   String
+  createdAt DateTime
+  updatedAt DateTime
+  title     String?
+  User      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model OwnerTeam {
+  owner_id  String   @unique
+  team_id   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  User      User     @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+  Team      Team     @relation(fields: [team_id], references: [id])
+
+  @@id([owner_id, team_id])
+}
+
+model Team {
+  id        String     @id
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime
+  OwnerTeam OwnerTeam?
+  User      User[]
+}
+
+model User {
+  id             String        @id
+  username       String        @unique
+  name           String
+  lastname       String
+  role           Role
+  password       String
+  createdAt      DateTime
+  updatedAt      DateTime
+  team_id        String?
+  accessStatus   AccessStatus? @default(ACTIVE)
+  avatarImageUrl String?
+  Contract       Contract[]
+  Goals          Goals[]
+  Notes          Notes[]
+  OwnerTeam      OwnerTeam?
+  Team           Team?         @relation(fields: [team_id], references: [id])
+}
+
+enum AccessStatus {
+  ACTIVE
+  REVOGED
+}
+
+enum Role {
+  USER
+  MANAGER
+  ADMIN
+}
+
+enum Status {
+  PENDENTE
+  CANCELADO
+  CONECTADO
+}
+
+enum TypeContract {
+  BASE
+  PROSPECT
+}
