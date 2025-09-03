@@ -1,5 +1,6 @@
 import { UserEntity } from "../entities/user.entity";
 
+export type SortOrderKey = "asc" | "desc";
 export type TUserListOuput = {
     users: UserEntity[];
     total: number;
@@ -10,7 +11,12 @@ export type TUserListOuput = {
 export type TUserListInput = {
     page: number;
     offset: number;
-    keywords?: string;
+    keywords: string | undefined;
+    orderBy?:
+        | {
+              [K in keyof UserEntity]: SortOrderKey | undefined;
+          }
+        | undefined;
 };
 
 export interface UserInterface {
@@ -21,7 +27,12 @@ export interface UserInterface {
     update(
         input: Pick<
             UserEntity,
-            "id" | "username" | "firstName" | "lastName" | "updatedAt"
+            | "id"
+            | "username"
+            | "firstName"
+            | "lastName"
+            | "avatarImageUrl"
+            | "updatedAt"
         >,
     ): Promise<void>;
     updatePassword(
