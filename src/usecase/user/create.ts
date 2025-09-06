@@ -19,7 +19,7 @@ export class CreateUserUsecase
 {
     private constructor(private readonly userRepo: UserInterface) {}
 
-    public async build(userRepo: UserInterface) {
+    public static build(userRepo: UserInterface) {
         return new CreateUserUsecase(userRepo);
     }
 

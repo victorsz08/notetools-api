@@ -1,25 +1,26 @@
 {
-  "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "./dist",
-    "module": "commonjs",
-    "target": "es2023",
-    "moduleResolution": "node",
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "./dist",
+        "module": "commonjs",
+        "target": "es2023",
+        "moduleResolution": "node",
+        "types": ["vitest/globals"],
 
-    // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "esModuleInterop": true,
+        // Other Outputs
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "esModuleInterop": true,
 
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+        // Stricter Typechecking Options
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
 
-    "strict": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-  }
+        "strict": true,
+        "isolatedModules": true,
+        "noUncheckedSideEffectImports": true,
+        "moduleDetection": "force",
+        "skipLibCheck": true
+    }
 }

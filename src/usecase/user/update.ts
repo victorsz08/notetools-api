@@ -11,13 +11,13 @@ export type UpdateUserInput = Pick<
 
 export type UpdateUserOutput = void;
 
-export class UpdadeUserUsecase
+export class UpdateUserUsecase
     implements Usecase<UpdateUserInput, UpdateUserOutput>
 {
     private constructor(private readonly userRepo: UserInterface) {}
 
     public static build(userRepo: UserInterface) {
-        return new UpdadeUserUsecase(userRepo);
+        return new UpdateUserUsecase(userRepo);
     }
 
     public async execute(input: UpdateUserInput): Promise<void> {
